@@ -1,0 +1,169 @@
+{% extends 'base.html'%}
+<!-- add title -->
+{% block title %} All Patients {% endblock title %}
+<!-- Navbar content -->
+{% block navbar-content %}
+<i class="fas fa-hospital-user"></i>&nbsp;&nbsp; Patients
+{% endblock navbar-content %}
+<!-- time -->
+{% block time%}
+<div class="col-sm">
+    <center>
+        <span style="color: #89cff0;" id="clock_time"></span>
+    </center>
+</div>
+{% endblock time%}
+<!-- Button on Navbar -->
+{% block nav-btn %}
+<div class="text-light" id="sidebar" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">
+    <i class="fas fa-bars"></i>
+</div>
+{% endblock nav-btn %}
+
+<!-- SIDEBAR -->
+{% block body-sidebar %}
+<div class="d-grid gap-2">
+    <button class="btn btn-outline-danger btn-sm btn_sidebar_logout" data-bs-toggle="modal" data-bs-target="#exampleModal">Logout</button>
+    {% if request.user.is_superuser %}
+    <a href="{% url 'admin:index' %}" target="-blank" class="btn btn-outline-primary btn-sm mb-3">Admin</a>
+    {% else %}
+    <button class="btn btn-outline-secondary btn-sm btn_sidebar_suport" data-bs-toggle="modal" data-bs-target="#supportModal">Support</button> <!-- Do not forget to pass the Support Model data-bs-->
+    {% endif %}
+    <hr>
+    <div class="text-center mt-3">Total Of Patients: {{ count }}</div>
+</div>
+{% endblock body-sidebar %}
+
+{% block footer %} style="color: #89cff0; text-decoration: none;" {% endblock footer %}
+
+<!-- page content -->
+{% block content %}
+<!-- <h1 class="text-center text-success">Backend page</h1>
+<br>
+<center>
+<a href="{% url 'add_patient' %}" class="btn btn-primary btn-sm" style="width: 200px">Add patient</a>
+<center> -->
+    <div class="container">
+        <br>
+        <br>
+        <div class="d-flex justify-content-between">
+            <!-- 1) colum Add Patient -->
+            <a href="{% url 'add_patient' %}" class="btn btn-outline-primary btn-sm btn-add-desktop" style="width: 200px"><i class="fas fa-plus">&nbsp;&nbsp;Add patient</i></a>
+            <a href="{% url 'add_patient' %}" class="btn btn-outline-primary btn-sm btn-add-smartphone"><i class="fas fa-plus"></i></a>
+            <!-- 2) Column GET USERS -->
+            <span class="welcome">
+                Welcome: <strong><span class="text-primary">{{user.get_username}}</span></strong>
+            </span>
+        </div>
+        <form>
+            <div class="input-group input-group-sm mb-3 mt-4">
+                <input name="q" type="text" class="form-control" placeholder="Search for......" value="{{ request.GET.q }}">
+                <button class="btn btn-success btn-sm"><i class="fas fa-search"></i></button>
+                <a href="{% url 'backend' %}" class="btn btn-dark" style="margin-left: 2px;"><i class="fas fa-sync-alt"></i></a>
+            </div>
+        </form>
+        <center>
+            <table class="table table-bordered table-sm mt-4" style="text-align: center; font-size: 18px;">
+                <thead class="table-secondary">
+                    <tr>
+                        <th style="width: 21%;">Name</th>
+                        <th style="width: 15%;">Phone</th>
+                        <th style="width: 21%;">Email</th>
+                        <th style="width: 8%;">Age</th>
+                        <th style="width: 7%;">Gender</th>
+                        <th style="width: 18%;">Registered</th>
+                        {% if request.user.is_superuser %}
+                            <th style="width: 10%;" colspan="2">Action</th>
+                        {% else %}
+                        <th style="width: 10%;" colspan="2">Edit Patient</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                {% for patient in patients %}
+                <tr id="chk_td">
+                    <td class="text-small" data-label="Name" id="top-table">{{patient.name}}</td>
+                    <td data-label="Phone" id="responsive-border">{{patient.phone}}</td>
+                    <td data-label="Email" id="responsive-border">{{patient.email}}</td>
+                    <td data-label="Age" id="responsive-border">{{patient.age}}</td>
+                    <td data-label="Gender" id="responsive-border">{{patient.gender}}</td>
+                    <td data-label="Date" id="responsive-border">{{patient.create_at | date:"Y/m/d" }}</td>
+                    <td>
+                        <a class="btn btn-primary" href="/patient/{{ patient.id }}" title="Edit patient">
+                            <i class="fas fa-pen"></i>
+                        </a>
+                    </td>
+                    {% if request.user.is_superuser %}
+                    <td>
+                        <a class="btn btn-secondary" title="Delete patient" data-bs-toggle="modal" data-bs-target="#deleteModal{{ patient.pk}}">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                    {% endif %}
+                </tr>
+                <!-- Delete confimation -->
+                <div class="modal fade" id="deleteModal{{ patient.pk}}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h1 class="modal-title fs-5" id="deleteModalLabel"><i class="fas fa-trash-alt"></i>&nbsp;&nbsp; Delete Patient</h1>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <div class="text-center text-danger"><i class="fas fa-times-circle fa-5x mt-2"></i></div>
+                            <div class="text-center text-danger">
+                                <span class="delete-confirm">DO YOU WANT TO DELETE THIS PATIENT ???</span>
+                                <div class="text-dark mt-3 mb-2 text-small">Patient: <strong>{{patient.name}}</strong></div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary btn-sm" id="btn-cancel" data-bs-dismiss="modal">Cancel</button>
+                          <a href="/delete_patient/{{ patient.id }}" type="button" id="btn-delete" class="btn btn-outline-danger btn-sm">Delete</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor%}
+            </table>
+        </center>
+        <!-- pagging -->
+        <nav class="mt-4" aria-label="Page navigation example">
+            {% if patients.has_other_pages %}
+            <ul class="pagination justify-content-left" id="pagination">
+                {% if patients.has_previous %}
+                <a href="?page=1" class="btn btn-outline-primary mb-4" style="width: 60px; border-radius: 1px; border: 1px solid #d3d3d3 " id="first">First</a>
+                <li class="page-item"><a class="page-link" href="?page={{ patients.previous_page_number }}"><i class="fas fa-angle-double-left"></i></a></li>
+                {% else %}
+                <li class="page-item disabled"></li>
+                {% endif %}
+
+                {% for i in patients.paginator.page_range %}
+                    {% if patients.number == i %}
+                <li class="page-item active"><span class="page-link">{{ i }}<span class="ir-only"></span></li>
+                {% else %}
+
+                <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+                {% endfor %}
+                {% if patients.has_next %}
+                <li class="page-item"><a class="page-link" href="?page={{ patients.next_page_number }}"><i class="fas fa-angle-double-right"></i></a></li>
+                <a href="?page={{ patients.paginator.num_pages}}" class="btn btn-outline-primary mb-4" style="width: 60px; border-radius: 1px; border: 1px solid #d3d3d3; border-left: none; " id="last">Last</a>
+                {% else %}
+                <li class="page-item disabled"></li>
+                {% endif %}
+            </ul>
+            {% endif %}
+        </nav>
+        {% for message in messages %}
+        {% if message.tags == 'success' %}
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+            var m = "{{ message }}";
+            swal("Perfect !", m, 'success');
+        </script>
+        {% endif %}
+        {% endfor %}
+         <!-- If NO PATIENT , SHOW THE MESSAGE -->
+         <span class="text-danger" id="no_data"></span>
+    </div>
+    <br><br><br>
+{% endblock content %}

@@ -1,0 +1,42 @@
+{% extends 'add.html'%}
+{% block title %} Update Patients {% endblock title %}
+
+{% block navbar-content %}
+<i class="fas fa-user-edit"></i>&nbsp;&nbsp; {{patient.name}}
+{% endblock navbar-content %}
+
+{% block card-title %} Registered at: <span class="text-primary"><strong> {{patient.create_at | date:"Y/m/d" }} </strong></span> {% endblock card-title %}
+<!-- ID -->
+{% block Value-id %}
+<div class="input-group mb-3">
+    <span class="side-label btn border-secondary bg-light txt-sm"><i class="fas fa-key"></i></span>
+    <input type="text" class="form-control txt-sm" name="id" value="{{ patient.id }}" readonly>
+</div>
+{% endblock Value-id %}
+
+{% block value-name%} value="{{patient.name}}" {% endblock value-name%}
+
+{% block value-phone%} value="{{patient.phone}}" {% endblock value-phone%}
+
+{% block value-email%} value="{{patient.email}}" {% endblock value-email%}
+
+{% block value-age%} value="{{patient.age}}" {% endblock value-age%}
+
+{% block value-gender%} value="{{patient.gender}}" {% endblock value-gender%}
+{% block option%} <option style="background-color: #d3d3d3; color: #007bff">{{patient.gender}}</option>{% endblock option%}
+
+{% block value-note%} {{patient.note}} {% endblock value-note%}
+<!-- Add Button Desktop Table -->
+{% block Btn-content1 %}<i class="fas fa-hdd">&nbsp;&nbsp; Save Patient</i>{% endblock Btn-content1 %}
+<!-- Add Button SmartPhone -->
+{% block Btn-content2 %}}<i class="fas fa-hdd">&nbsp;&nbsp; Save</i>{% endblock Btn-content2 %}
+
+{% block Btn-reset %}
+<button type="reset" class="btn btn-secondary btn-sm" id="btn-reset"><i class="fas fa-sync-alt">&nbsp;&nbsp; Reset</i></button>
+{% endblock Btn-reset %}
+<!-- Action extend -->
+{% block Action %} action="/edit_patient" {% endblock Action %}
+
+{% block td-hidden %}
+<input type="hidden" name="id" value="{{patient.id}}"/>
+{% endblock td-hidden %}

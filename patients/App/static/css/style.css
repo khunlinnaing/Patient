@@ -1,0 +1,314 @@
+/*------------------------------------
+#START CONFIGURATION
+---------------------------------------*/   
+
+html,
+body{
+    height: 100%;
+    margin: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
+/*------------------------------------
+#Navbar
+---------------------------------------*/
+#btn-nav{
+    width: 90px !important;
+    float: right;
+    margin-right: 25px;
+}
+#sidebar{
+    float: right;
+    margin-right: 25px;
+    cursor: pointer;
+    font-size: 20px;
+}
+a {
+    text-decoration: none;
+}
+/*------------------------------------
+#footer
+---------------------------------------*/
+.wrapper{
+    min-height: 100%;
+    margin-bottom: -50px;
+}
+#footer,
+.push{
+    height: 50px;
+    font-size: 13px;
+}
+
+/*------------------------------------
+#PATTENT 
+---------------------------------------*/
+.side-label{
+    width: 40px
+}
+
+/*------------------------------------
+#BACKEND | PATIENTS LIST (backend.html) 
+---------------------------------------*/
+#no_data{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -58%;
+    transform: translate(-50%, -50%);
+    font-size: 22px;
+}
+/*======================= 
+LOGIN
+============================================ */
+/* #heart {
+    position: absolute;
+    top: 78%;
+    left: 58%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-size: 22px;
+} */
+/* #btn-enter{
+    width: 90px;
+} */
+#title-login{
+    cursor: default;
+}
+#card-login{
+    width: 450px;
+}
+.login-border{
+    border-top: .4rem solid #007bff;
+    border-radius: 10px;
+}
+#btn-enter{
+    border-radius: 15px;
+    font-size: 16px;
+}
+/* Message if no data found in search box */
+#no-data{
+    position: absolute;
+    top: 58%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-size: 22px;
+}
+/* pagination */
+#first, #last{
+    width: 60px;
+}
+.btn-add-smartphone, .Btn-add-smartphone{
+    display: none !important;
+}
+#btn-proceed{
+    width: 70px;
+}
+/* CUSTOM SWEETALERT */
+
+/* ALL TEXT 100% CONTORED */
+.swal-text{
+    text-align: center;
+}
+.swal-icon--success::before,
+.swal-icon--success::after,
+.swal-icon--success__hide-corners{
+    background: none;
+}
+
+.swal-icon--success{
+    background-color: #007bff;
+}
+.swal-icon--success__line{
+    background-color: #007bff;
+}
+.swal-button{
+    padding: 7px 10px;
+    border-radius: 5px;
+    background-color: #007bff;
+    font-size: 12px;
+    border: 1px solid #007bff;
+}
+.swal-button:focus{
+    box-shadow: none;
+}
+.swal-button:not([disabled]):hover{
+    background: transparent;
+    color: #111;
+    border: 1px solid #007bff;
+}
+/* =====================================
+RESPONSIVE MODE -TABLE 1024 
+========================================*/
+@media(max-width: 1024px){
+    .table head{
+        display: none;
+    }
+    .table, .table tbody, .table tr, .table td{
+        display: block;
+        width: 100%;
+    }
+    .table tr{
+        margin-bottom: 15px;
+        border: 1px solid #111;
+        border-radius: 5px;
+    }
+    .table td{
+        text-align: right;
+        position: relative;
+        /* left: 0;
+        width: 50%; */
+        padding-left: 35%;
+        border: 1px solid transparent;
+        /* font-size: 13px;
+        font-weight: bold;
+        text-align: left; */
+    }
+    .table td::before{
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-size: 13px;
+        font-weight: bold;
+        text-align: left;
+    }
+    .table > thead > tr:first-chcild{
+        display: none;
+        margin-top: 5px;
+    }
+    /* Responsive Border */
+    #responsive-border{
+        border: 1px solid #a9a9a9;
+    }
+    #top-table{
+        background-color: #6c757d;
+        color: #fff;
+        font-weight: bold;
+    }
+    /*=============== End table ========================*/
+    /* Enable the vertical scroll */
+    body{
+        overflow-y:visible ;
+    }
+    /* Enable the Vertical Scroll */
+    #add_patient{
+        font-size: 12px;
+    }
+    /* button in navbar */
+    #btn-nav{
+        width: 75px;
+    }
+    /* welcome user */
+    .welcome{
+        font-size: 13px;
+    }
+
+    #footer{
+        font-size: 12px;
+    }
+}
+/* =================================
+# RESPONSIVE MODE -SMARTPHONE 500PX
+==================================== */
+@media(max-width: 500px){
+    /* Hide "Alrignt" */
+    #allright{
+        display: none;
+    }
+    #footer{
+        font-size: 10px !important;
+    }
+    .btn-actions{
+        width: 35px !important;
+        font-size: 12px !important;
+        margin-left: 15px !important;
+    }
+    #clock_time{
+        display: none !important;
+    }
+    #nav-content{
+        font-size: 15px !important;
+    }
+    /* table */
+    .table>thead {
+        vertical-align: bottom;
+        display: none;
+    }
+    /* end table */
+    .text-small{
+        font-size: 12px !important;
+    }
+    #title-login{
+        font-size: 13px !important;
+        cursor: default !important;
+    }
+    .welcome{
+        font-size: 12px !important;
+    }
+    #add-patient{
+        font-size: 10px !important;
+    }
+    .delete-confirm{
+        font-size: 12px !important;
+    }
+    #deleteModalLabel, #exampleModalLabel{
+        font-size: 12px !important;
+    }
+    #btn-cancel, #btn-delete, #btn-logout{
+        font-size: 12px !important;
+    }
+    #no-data{
+        font-size: 18px !important;
+    }
+    #pagination, #first, #last{
+        font-size: 12px !important;
+    }
+    #info, #no_data{
+        font-size: 14px !important;
+    }
+    .side-label{
+        width: 75px !important;
+        font-size: 12px !important;
+    }
+    #btn-add{
+        font-size: 12px !important;
+        width: 100%;
+    }
+    #btn-back{
+        font-size: 12px !important;
+        width: 100%;
+        background-color: #6c757d;
+        color: white;
+    }
+    #btn-reset{
+        font-size: 12px !important;
+        width: 100%;
+        background-color: #111;
+        color: white;
+    }
+    #card-login{
+        width: 95% !important;
+    }
+    #btn-enter{
+        font-size: 12px !important;
+    }
+    .btn-add-smartphone{
+        display: inline !important;
+        width: 48px;
+        font-size: 12px;
+    }
+    .btn-add-desktop{
+        display: none !important;
+    }
+    .side-label{
+        width: 40px !important;
+    }
+    #sidebar{
+        margin-right: 15px !important;
+    }
+    #btn-proceed{
+        width: 60px;
+    }
+}
